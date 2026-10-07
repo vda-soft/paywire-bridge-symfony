@@ -46,8 +46,8 @@ final class InitializePaymentTest extends TestCase
 
         self::assertSame(
             \sprintf(
-                '{"paymentId":{"id":"%s"},"gateway":"PayU","total":{"amount":"12.34","currency":"USD"},"description":"Test payment","order":{"type":"order","id":"order-123"},"customer":{"email":"customer@example.com","id":"customer-123"},"posId":"pos-123"}',
-                $paymentId->id,
+                '{"paymentId":"%s","gateway":"PayU","total":{"amount":"12.34","currency":"USD"},"description":"Test payment","order":{"type":"order","id":"order-123"},"customer":{"email":"customer@example.com","id":"customer-123"},"posId":"pos-123"}',
+                (string) $paymentId,
             ),
             $json,
         );
@@ -58,7 +58,7 @@ final class InitializePaymentTest extends TestCase
 
         self::assertSame(
             [
-                'paymentId' => $paymentId->id,
+                'paymentId' => (string) $paymentId,
                 'gateway' => GatewayEnum::PayU,
                 'total' => [
                     'amount' => '12.34',
@@ -76,7 +76,7 @@ final class InitializePaymentTest extends TestCase
                 'posId' => 'pos-123',
             ],
             [
-                'paymentId' => $deserializedCommand->paymentId->id,
+                'paymentId' => (string) $deserializedCommand->paymentId,
                 'gateway' => $deserializedCommand->gateway,
                 'total' => [
                     'amount' => $deserializedCommand->total->amount,
